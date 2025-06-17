@@ -1,0 +1,82 @@
+﻿Account Base Type,Account Name,Account Code ,Debit,Credit
+Assets,PG Receivable,211201,4426459,0
+Assets,Accounts Receivable,211202,0,0
+Assets,Employee Advance,211203,238181,0
+Assets,Furniture and Equipment,211204,12000000,0
+Assets,Input Tax Credits,211205,5684325,0
+Assets,Inventory Asset,211206,0,0
+Assets,Bank Account 8511 HDFC,211207,1096964716,0
+Assets,Petty Cash,211208,130000,0
+Assets,Prepaid Expenses,211209,90000,0
+Assets,Reverse Charge Tax Input but not due,211210,0,0
+Assets,TDS Receivable,211211,0,0
+Assets,Accumulated Depreciation ,211212,0,8000000
+Liabilities,Accounts Payable,211301,0,8200000
+Liabilities,Salary Payable,211302,0,0
+Liabilities,Dimension Adjustments,211303,0,0
+Liabilities,Employee Reimbursements,211304,0,0
+Liabilities,GST Payable,211305,0,21747578.49
+Liabilities,Long Term Debt,211306,0,0
+Liabilities,Opening Balance Adjustments,211307,0,0
+Liabilities,Professional Tax Payable,211308,0,42800
+Liabilities,PF payable,211309,0,398367.19
+Liabilities,TDS Payable,211310,0,689778.9
+Liabilities,Interest Payable,211311,0,0
+Liabilities,Unearned Revenue,211312,0,0
+Equities,Retained Earnings,211101,98269106,0
+Equities,Capital Stock,211102,0,0
+Equities,Distributions,211103,0,0
+Equities,Dividends Paid,211104,0,0
+Equities,Drawings,211105,0,0
+Equities,Investments,211106,0,0
+Equities,Share Capital,211107,0,222240
+Equities,Securities Premium,211108,0,1204877760
+Income,Discount,211401,0,0
+Income,General Income,211402,0,0
+Income,Interest Income,211403,0,97561261
+Income,Late Fee Income,211404,0,0
+Income,Other Charges,211405,0,0
+Income,Online Sales,211406,0,1008194881
+Income,Shipping Charge,211407,0,0
+Income,Offline sales,211408,0,0
+Expense,Performance Marketing,211501,93341038,0
+Expense,Brand,211502,26113769,0
+Expense,Automobile Expense,211503,0,0
+Expense,Bad Debt,211504,0,0
+Expense,Bank Fees and Charges,211505,0,0
+Expense,Fleet Salaries and Expense,211506,36375999,0
+Expense,Fuel Expense,211507,376683962,0
+Expense,Consultant Expense,211508,0,0
+Expense,Consumables,211509,0,0
+Expense,Contract Assets,211510,0,0
+Expense,Cost of Goods Sold,211511,0,0
+Expense,Credit Card Charges,211512,0,0
+Expense,Customer support Expense,211513,54660654,0
+Expense,Depreciation Expense,211514,8000000,0
+Expense,Exchange Gain or Loss,211515,0,0
+Expense,Inter-company,211516,0,0
+Expense,Interest Expense,211517,0,0
+Expense,IT and Internet Expenses,211518,2621543,0
+Expense,Janitorial Expense,211519,0,0
+Expense,Job Costing,211520,0,0
+Expense,Labor,211521,0,0
+Expense,Lease Rental,211522,379350248,0
+Expense,Maintenance Expense,211523,13903968,0
+Expense,Meals and Entertainment,211524,0,0
+Expense,Merchandise,211525,0,0
+Expense,Office Supplies,211526,0,0
+Expense,Other Expenses,211527,0,0
+Expense,Payment Gateway Charges,211528,18179081,0
+Expense,Postage,211529,0,0
+Expense,Printing and Stationery,211530,0,0
+Expense,Purchase Discounts,211531,0,0
+Expense,Raw Materials And Consumables,211532,0,0
+Expense,Rent Expense,211533,5044673,0
+Expense,Repairs and Maintenance,211534,0,0
+Expense,Servicing Expense,211536,25501233,0
+Expense,Salaries and Employee Wages,211537,82258494,0
+Expense,Site Rental,211538,10097218,0
+Expense,Telephone Expense,211539,0,0
+Expense,Transportation Expense,211540,0,0
+Expense,Travel Expense,211541,0,0
+Expense,Uncategorized,211542,0,0
