@@ -75,7 +75,7 @@ def main():
     prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
     prompt = prompt_template.format(context=context_text, question=query_text)
 
-    model = ChatOpenAI()
+    model = ChatOpenAI(model="gpt-4o-mini")
     response_text = model.invoke(prompt).content
 
     print(f"Response: {response_text}")
