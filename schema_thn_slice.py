@@ -226,6 +226,90 @@ class CSVDataSlicer:
         print(f"✅ Extracted {len(df)} rows with {len(df.columns)} columns")
         return df
 
+def answer_question(data: pd.DataFrame, analysis: ModelAnalysis, question: str) -> Dict[str, Any]:
+    """
+    Step 4: Use OpenAI to answer questions about the data
+    
+    Args:
+        data: DataFrame containing the selected columns
+        analysis: ModelAnalysis object with AI recommendations
+        question: Question to answer about the data
+        
+    Returns:
+        Dictionary with answer and supporting data
+    """
+    print(f"\n🧠 STEP 4: Answering Question: '{question}'")
+    print("-" * 40)
+    
+    # Create a data summary
+    data_summary = {
+        "shape": data.shape,
+        "columns": data.columns.tolist(),
+        "numeric_stats": data.describe().to_dict() if not data.empty else {},
+        "sample_data": data.head(5).to_dict() if not data.empty else {}
+    }
+    
+    # Prepare for API call
+    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    
+    system_prompt = """You are a data analysis expert. Given a dataset and a question, 
+    provide a clear, factual answer based only on the data provided.
+    If calculations are needed, show your work. If the data is insufficient, explain why.
+    Format any numbers appropriately with commas for thousands."""
+    
+    user_prompt = f"""
+    Dataset Information:
+    {json.dumps(data_summary, indent=2)}
+    
+    Question: {question}
+    
+    Based on the formulas suggested: {analysis.formulas_needed}
+    
+    Please provide:
+    1. A direct answer to the question
+    2. Any calculations performed to reach the answer
+    3. Any relevant statistics or insights from the data
+    """
+    
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt}
+            ]
+        )
+        
+        ai_answer = response.choices[0].message.content
+        
+        # Parse the answer into a structured format
+        answer_dict = {
+            "answer": ai_answer,
+            "data_shape": f"{data.shape[0]} rows × {data.shape[1]} columns",
+            "columns_used": data.columns.tolist()
+        }
+        
+        # Try to extract any numerical answers for specific questions
+        if "total" in question.lower() and "sales" in question.lower():
+            # Look for columns that might contain sales data
+            sales_cols = [col for col in data.columns if any(term in col.lower() 
+                        for term in ["sales", "revenue", "amount", "price", "total"])]
+            
+            if sales_cols:
+                total_sales = data[sales_cols].sum().sum()
+                answer_dict["total_sales"] = f"{total_sales:,.2f}"
+        
+        print(f"✅ Answer generated successfully!")
+        return answer_dict
+        
+    except Exception as e:
+        print(f"❌ Error generating answer: {e}")
+        return {
+            "answer": "Sorry, I couldn't generate an answer due to an error.",
+            "error": str(e)
+        }
+
+
 def intelligent_csv_analysis(csv_path: str, openai_api_key: str, task_description: str):
     """
     Complete intelligent workflow with OpenAI model integration
@@ -289,11 +373,12 @@ def intelligent_csv_analysis(csv_path: str, openai_api_key: str, task_descriptio
     
     return sliced_data, analysis
 
+
+
 if __name__ == "__main__":
-    CSV_FILE_PATH = "./data/files/zoomcar-opening-balance.csv" 
+    CSV_FILE_PATH = "./data/files/zoomcar-tb-ttm.csv" 
     OPENAI_API_KEY = os.getenv("OPENAI_API_KEY") 
-    TASK_DESCRIPTION = "build a 3-month revenue forecast model" 
-    
+    TASK_DESCRIPTION = "Give me total sales for each month, and the average sales per day in the last 3 months. Also, calculate the total revenue generated from these sales."     
     
     try:
         # Run the intelligent workflow
@@ -303,9 +388,15 @@ if __name__ == "__main__":
             task_description=TASK_DESCRIPTION
         )
         
+        answers = answer_question(final_data, ai_analysis, TASK_DESCRIPTION)
+        
         print(f"\n🎯 SUCCESS: AI-optimized dataset ready!")
         print(f"You can now use this focused dataset for: {ai_analysis.analysis_type}")
-        
+        print(f"Final dataset shape: {final_data.shape}")
+        print(f"\n✅ FINAL ANSWER:")
+        for key, value in answers.items():
+            print(f"{key}: {value}")
+            
     except FileNotFoundError:
         print(f"❌ File not found: {CSV_FILE_PATH}")
         print("Please update CSV_FILE_PATH with your actual CSV file path")
